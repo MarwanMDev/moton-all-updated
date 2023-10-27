@@ -1,0 +1,134 @@
+
+
+<h1 class="text">اضافة فعالية جديد</h1>
+
+
+<!-- [formGroup]="AddEventForm" -->
+
+<form (ngSubmit)="handelAddEvent(AddEventForm)" >
+  <div class="container">
+
+    
+   <div class="row m">
+
+    <div class="col input-s ">
+     <input type="text"   class="form-control" formControlName="title"  placeholder="العنوان الرئيسي">
+      <div class="alert alert-danger" *ngIf="AddEventForm.get('title')?.errors && AddEventForm.get('title')?.touched "> 
+          <p  *ngIf="AddEventForm.get('title')?.getError('required')" class="m-0"> is Required </p>
+          <p  *ngIf="AddEventForm.get('title')?.getError('minlength')" class="m-0"> too short title </p>
+       </div>
+     </div>
+ 
+   </div>
+
+
+   <div class="row m">
+    
+
+    <div class="file-input-container col  input-s">
+      <label for="fileInput1" class="file-input-label">
+        <span *ngIf="!image">اختر صوره</span>
+        <span *ngIf="image">Image selected: {{ image.name }}</span>
+        <input type="file"  id="fileInput1"  (change)="getimage($event)"  (change)="submitDataImage()" >
+      </label>
+      <div class="alert alert-danger" *ngIf="AddEventForm.get('image')?.errors && AddEventForm.get('image')?.touched " > 
+        <p  *ngIf="AddEventForm.get('image')?.getError('required')" class="m-0"> is Required </p>
+     </div>
+    </div>
+
+
+        
+          
+
+         
+    
+   </div>
+
+
+   <div class="row m">
+
+    <div class="col input-s ">
+     <input type="text"   class="form-control" formControlName="address"  placeholder="العنوان">
+      <div class="alert alert-danger" *ngIf="AddEventForm.get('address')?.errors && AddEventForm.get('address')?.touched "> 
+          <p  *ngIf="AddEventForm.get('address')?.getError('required')" class="m-0"> is Required </p>
+          <p  *ngIf="AddEventForm.get('address')?.getError('minlength')" class="m-0"> too short  address </p>
+       </div>
+     </div>
+ 
+   </div>
+
+
+
+  <div class="row m">
+
+    <div class="col input-s ">
+     <input type="date"   class="form-control" formControlName="date"  placeholder="التاريخ">
+      <div class="alert alert-danger" *ngIf="AddEventForm.get('date')?.errors && AddEventForm.get('date')?.touched "> 
+          <p  *ngIf="AddEventForm.get('date')?.getError('required')" class="m-0"> is Required </p>
+          <p  *ngIf="AddEventForm.get('date')?.getError('minlength')" class="m-0"> too short Author date </p>
+       </div>
+     </div>
+ 
+   </div>
+
+
+
+   <div class="row m">
+
+    <div class="col input-s ">
+     <input type="text"   class="form-control" formControlName="details"  placeholder="مزيد من المعلومات">
+      <div class="alert alert-danger" *ngIf="AddEventForm.get('details')?.errors && AddEventForm.get('details')?.touched "> 
+          <p  *ngIf="AddEventForm.get('details')?.getError('required')" class="m-0"> is Required </p>
+          <p  *ngIf="AddEventForm.get('details')?.getError('minlength')" class="m-0"> too short Author details </p>
+       </div>
+     </div>
+ 
+   </div>
+
+
+   
+   
+   <div class="row m">
+    <div class="col  select-o">
+      <textarea class=" form-control mass "  formControlName="description"  placeholder="الوصف"  rows="10"></textarea>
+      <div class="alert alert-danger" *ngIf="AddEventForm.get('description')?.errors && AddEventForm.get('description')?.touched "> 
+        <p  *ngIf="AddEventForm.get('description')?.getError('required')" class="m-0"> is Required </p>
+     </div>
+    </div>
+     
+   </div>
+
+
+   <div class="but">
+    <button [disabled]="AddEventForm.invalid" type="submit"  class="btn  btn-lg d-btn  btn-secondary  "   > اضف الان </button>
+   </div>
+
+  </div>
+
+
+</form>
+
+
+
+ <!-- get Events that added -->
+
+
+
+
+ <h1 class="text">الفعاليات المضافة</h1>
+ <div class="parent1">
+   <div class="content-pub" *ngFor="let EventItem of Event">
+       <img [src]="EventItem.image" alt="">
+       <h5>{{ EventItem.title }} <span>  : الاسم</span>  </h5>
+       <h5>{{ EventItem.date }} <span>  : التاريخ</span> </h5>
+       <h5>{{ EventItem.address }} <span>  : العنوان </span> </h5>
+       <h5>{{ EventItem.details }} <span>  : العنوان بالتفصيل </span> </h5>
+
+ 
+ 
+     <div class="content-btn">
+       <button   class="btn  btn-lg d-btn  btn-secondary  "   (click)="onDeleteEvent(EventItem._id)"    > حذف </button>
+       </div>
+   </div>
+ </div>
+ 

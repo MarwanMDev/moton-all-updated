@@ -1,0 +1,141 @@
+
+
+.container{
+    border-radius: 25px;
+}
+
+
+
+.parent1{
+    margin: auto;
+    margin-top: 7%;
+    width: 80%;
+   display: flex;
+   /* justify-content: space-between; */
+   justify-content: space-evenly;
+    flex-wrap: wrap;
+
+}
+
+
+.content-pub{
+    padding: 3% 0%;
+    border-radius: 25px;
+    margin-top: 5%;
+    text-align: center;
+    width: 45%;
+    background-color: #E5E4E4;
+    
+}
+
+.content-pub h5{
+
+    text-align: right;
+    padding-top: 2%;
+    color: rgba(0, 0, 0, 0.6);
+
+}
+
+.content-pub span{
+    float: right;
+    color: rgba(23, 63, 95, 1);
+    padding-right: 5%;
+
+}
+
+
+h4{
+    float: right;
+    color: rgba(23, 63, 95, 1);
+    padding-right: 5%;
+}
+
+
+
+
+
+/* Media Query for smallest screens (e.g., smartphones) */
+@media screen and (max-width: 700px) {
+    h1{
+        margin-top: 20%;
+    }
+    .container {
+        margin: auto;
+        text-align: center;
+        width: 80%; /* Make the container full width */
+        height: auto;
+    }
+
+    .file-input-label{
+        width: 93%;
+        height: 40px;
+    }
+    /* Adjust the layout for small screens, one input per line */
+    .row.m {
+        flex-direction: column;
+        height: 150px;
+    }
+
+ 
+    .content-pub{
+        margin: auto;
+        text-align: center;
+        width: 100%;
+        margin-top: 15% ;
+        
+    }
+    
+
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Media Query for tablets (e.g., screens with a width between 481px and 768px) */
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+    /* Adjust the layout for tablets, two inputs per line */
+    h1{
+        margin-top: 10%;
+    }
+
+    .container {
+        margin: auto;
+        text-align: center;
+        width: 80%; /* Make the container full width */
+        /* height: 50vh; */
+    }
+
+    .file-input-label{
+        width: 93%;
+        height: 40px;
+    }
+
+    .row.m {
+        flex-wrap: wrap;
+    }
+
+    .col.input-s {
+        width: 50%; /* Display two inputs per line */
+    }
+
+
+
+
+    .content-pub{
+        margin: auto;
+        text-align: center;
+        width: 40%;
+        margin-top: 10% ;
+
+    }
+}
+

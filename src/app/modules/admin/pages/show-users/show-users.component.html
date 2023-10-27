@@ -1,0 +1,15 @@
+<h1 class="text">Users</h1>
+
+<div class="parent1">
+  <div class="content-pub" *ngFor="let UserItem of Userss">
+      <img [src]="UserItem.profileImage" alt="">
+      <h5>{{ UserItem._id }} <span>  : رقم تسجيل المستخدم</span> </h5>
+      <h5>{{ UserItem.name }} <span>  : اسم المستخدم</span> </h5>
+      <h5>{{ UserItem.email }} <span>  : ايميل المستخدم </span> </h5>
+
+
+    <div class="content-btn">
+      <button   class="btn  btn-lg d-btn  btn-secondary  "   (click)="Delete_User_And_Publisher(UserItem._id)"    > حذف </button>
+      </div>
+  </div>
+</div>

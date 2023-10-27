@@ -1,0 +1,201 @@
+<h1 class="text">اضافة كتاب جديد</h1>
+
+<!-- [formGroup]="AddBook" -->
+<form (ngSubmit)="handelAddBook(AddBook)" >
+  <div class="container">
+   <div class="row m">
+    <div class="col input-s ">
+    <input type="text"   class="form-control" formControlName="authorName"  placeholder="اسم الكاتب">
+     <div class="alert alert-danger" *ngIf="AddBook.get('authorName')?.errors && AddBook.get('authorName')?.touched "> 
+         <p  *ngIf="AddBook.get('authorName')?.getError('required')" class="m-0"> is Required </p>
+         <p  *ngIf="AddBook.get('authorName')?.getError('minlength')" class="m-0"> too short Author Name </p>
+         <p  *ngIf="AddBook.get('authorName')?.getError('maxlength')" class="m-0"> too long Author Name </p>
+      </div>
+    </div>
+
+    <div class="col  input-s">
+      <input type="text" class="form-control"  formControlName="bookName" placeholder="اسم الكتاب">
+      <div class="alert alert-danger" *ngIf="AddBook.get('bookName')?.errors && AddBook.get('bookName')?.touched "> 
+        <p  *ngIf="AddBook.get('bookName')?.getError('required')" class="m-0"> is Required </p>
+        <p  *ngIf="AddBook.get('bookName')?.getError('minlength')" class="m-0"> too short book Name </p>
+        <p  *ngIf="AddBook.get('bookName')?.getError('maxlength')" class="m-0"> too long book Name </p>
+     </div>
+    </div>    
+   </div>
+
+   <div class="row m">
+    <div class="col  input-s">
+      <input type="text" class="form-control" formControlName="delivaryPrice" placeholder="سعر الشحن">
+      
+    </div>
+    <div class="col  input-s">
+      <input type="number" class="form-control" formControlName="price" placeholder="سعر الكتاب">
+      <div class="alert alert-danger" *ngIf="AddBook.get('price')?.errors && AddBook.get('price')?.touched "> 
+        <p  *ngIf="AddBook.get('price')?.getError('required')" class="m-0"> is Required </p>
+     </div>
+    </div>    
+   </div>
+
+   <div class="row m">
+    <div class="col  input-s">
+      <input type="date" class="form-control" formControlName="publicationDate" placeholder="تاريخ النشر">
+      <div class="alert alert-danger" *ngIf="AddBook.get('publicationDate')?.errors && AddBook.get('publicationDate')?.touched "> 
+        <p  *ngIf="AddBook.get('publicationDate')?.getError('required')" class="m-0"> is Required </p>
+     </div>
+    </div>
+    <div class="col  input-s">
+      <input type="text" class="form-control"  formControlName="publisherName" placeholder="الناشر">
+      <div class="alert alert-danger" *ngIf="AddBook.get('publisherName')?.errors && AddBook.get('publisherName')?.touched "> 
+        <p  *ngIf="AddBook.get('publisherName')?.getError('required')" class="m-0"> is Required </p>
+        <p  *ngIf="AddBook.get('publisherName')?.getError('minlength')" class="m-0"> too short publisher Name </p>
+        <p  *ngIf="AddBook.get('publisherName')?.getError('maxlength')" class="m-0"> too long publisher Name </p>
+     </div>
+    </div>    
+   </div>
+
+   
+   <div class="row m">
+    <div class="col  input-s">
+      <input type="text" class="form-control" formControlName="numberOfCovers" placeholder="المجلد">
+      <div class="alert alert-danger" *ngIf="AddBook.get('numberOfCovers')?.errors && AddBook.get('numberOfCovers')?.touched "> 
+        <p  *ngIf="AddBook.get('numberOfCovers')?.getError('required')" class="m-0"> is Required </p>
+     </div>
+    </div>
+
+   
+    <div class="file-input-container col  input-s">
+        <label for="fileInput1" class="file-input-label">
+          <span *ngIf="!image">اختر صوره</span>
+          <span *ngIf="image">Image selected: {{ image.name }}</span>
+          <input type="file"  id="fileInput1"  (change)="getimage($event)"  (change)="submitDataImage()" >
+        </label>
+        <div class="alert alert-danger" *ngIf="AddBook.get('image')?.errors && AddBook.get('image')?.touched " > 
+          <p  *ngIf="AddBook.get('image')?.getError('required')" class="m-0"> is Required </p>
+       </div>
+      </div>
+   </div>
+
+
+
+   <div class="row m">
+    <div class="col  input-s">
+      <input type="text" class="form-control"  formControlName="bookSize" placeholder="الحجم">
+      <div class="alert alert-danger" *ngIf="AddBook.get('bookSize')?.errors && AddBook.get('bookSize')?.touched "> 
+        <p  *ngIf="AddBook.get('bookSize')?.getError('required')" class="m-0"> is Required </p>
+     </div>
+    </div>
+    <div class="col  input-s">
+      <input type="text" class="form-control"  formControlName="editionOfBook" placeholder="الطبعة">
+      <div class="alert alert-danger" *ngIf="AddBook.get('editionOfBook')?.errors && AddBook.get('editionOfBook')?.touched "> 
+        <p  *ngIf="AddBook.get('editionOfBook')?.getError('required')" class="m-0"> is Required </p>
+     </div>
+    </div>    
+   </div>
+
+
+
+   <div class="row m">
+    <div class="col  select-o" >
+      <select  class="form-select form-select-lg mb-3" formControlName="language"  aria-label=".form-select-lg example" >
+        <optgroup label="لغة الكتاب">
+        <option value="english">English</option>
+        <option value="arabic">Arabic</option>
+      </optgroup>
+      </select>
+    </div>
+    <div class="col  select-o">
+      <select class="form-select form-select-lg mb-3"  formControlName="category"  aria-label=".form-select-lg example">
+        <optgroup label="الفئة المضاف اليها">
+
+            <option *ngFor="let item of category" [value]="item._id">
+              {{item.name}}
+            </option>
+
+      </optgroup>
+      </select>
+    </div>   
+   </div>
+
+
+   <div class="row m ">
+
+    <div class="col  select-o ">
+      <select class="form-select form-select-lg mb-1" formControlName="type" aria-label=".form-select-lg example" >
+        <optgroup label="نوع الكتاب">
+          <option value="paper">ورقي</option>
+          <option value="electronic">الكتروني</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="file-input-container col  input-s">
+      <label for="fileInput2" class="file-input-label">
+        <span *ngIf="!file">اختر ملف</span>
+        <span *ngIf="file">File selected: {{ file.name }}</span>
+        <input type="file" id="fileInput2" (change)="getFile($event)"  (change)="submitData()"  >
+      </label>
+    </div> 
+   </div>
+
+
+
+   <div class="row m">
+    <div class="col  select-o">
+      <textarea class=" form-control mass "  formControlName="description"  placeholder="الوصف"  rows="10"></textarea>
+      <div class="alert alert-danger" *ngIf="AddBook.get('description')?.errors && AddBook.get('description')?.touched "> 
+        <p  *ngIf="AddBook.get('description')?.getError('required')" class="m-0"> is Required </p>
+     </div>
+    </div>
+     
+   </div>
+
+   <div class="but">
+    <button [disabled]="AddBook.invalid" type="submit"  class="btn  btn-lg d-btn  " > اضف الان </button>
+   </div>
+
+  </div>
+
+
+</form>
+
+
+
+
+
+    <!-- get books that added -->
+
+
+
+    <h1 class="text">الكتب المضافة</h1>
+
+
+    <div class="parent1">
+      <div class="content-pub" *ngFor="let BookItem of Book">
+        
+          <img [src]="BookItem.image" alt="">
+          <h5><span>:  اسم الكتاب </span>{{ BookItem.bookName }}    </h5>
+          <h5><span>:  الفئة </span> {{ BookItem.type }}      </h5>
+          <h5><span>:  السعر </span> {{ BookItem.price }}    </h5>
+         
+          <h5>{{ BookItem.language }} <span>  : اللغة </span> </h5>
+    
+    
+        <div class="content-btn">
+          <button   class="btn  btn-lg d-btn  btn-secondary  "   (click)="onDeleteProdect(BookItem._id)"    > حذف </button>
+          </div>
+      </div>
+    </div>
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+

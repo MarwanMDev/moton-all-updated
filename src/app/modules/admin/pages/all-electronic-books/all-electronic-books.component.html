@@ -1,0 +1,23 @@
+<h1 class="text">الكتب الالكترونية</h1>
+
+
+    <div class="parent1">
+      <div class="content-pub" *ngFor="let BookItem of Book">
+        
+          <img [src]="BookItem.image" alt="">
+          <h5><span>:  اسم الكتاب </span>{{ BookItem.bookName }}    </h5>
+          <h5><span>:  الفئة </span> {{ BookItem.type }}      </h5>
+          <h5><span>:  السعر </span> {{ BookItem.price }}    </h5>
+
+
+
+            <!-- <h5 > {{ BookItem.category.name }} <span>  : الفئة</span> </h5> -->
+         
+          <h5>{{ BookItem.language }} <span>  : اللغة </span> </h5>
+    
+    
+        <div class="content-btn">
+          <button   class="btn  btn-lg d-btn  btn-secondary  "   (click)="onDeleteProdect(BookItem._id)"    > حذف </button>
+          </div>
+      </div>
+    </div>

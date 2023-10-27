@@ -1,0 +1,27 @@
+
+
+<h1 class="text">الرسائل المرسلة</h1>
+
+
+
+    <div class="container" *ngFor="let MessagesItem of Messages" >
+    
+  <div class="content">
+
+
+    <h5>{{ MessagesItem._id }} <span>  : رقم تسجيل المستخدم</span> </h5>
+    <h5>{{ MessagesItem.name }} <span>  : اسم العميل</span> </h5>
+    <h5>{{ MessagesItem.email }} <span>  : ايميل العميل</span> </h5>
+    <h5>{{ MessagesItem.phone }} <span>  : رقم الهاتف</span> </h5>
+    <h5>{{ MessagesItem.message }} <span>  : الرسالة</span> </h5>
+
+
+      <div class="content-btn">
+      <button   class="btn  btn-lg d-btn  btn-secondary  "   (click)="onDeleteProdect(MessagesItem._id)"    > حذف </button>
+      </div>
+      
+
+    </div>
+    
+  </div>
+

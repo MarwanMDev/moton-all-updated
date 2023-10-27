@@ -1,0 +1,31 @@
+
+
+<h1 class="text">الطلبات</h1>
+
+
+<div class="parent1">
+  <div class="content-pub" *ngFor="let orderItem of orders">
+    <h5>{{ orderItem.user._id }} <span>  : رقم تسجيل المستخدم</span> </h5>
+    <h5>{{ orderItem.user.name }} <span>  : اسم العميل</span> </h5>
+    <h5>{{ orderItem.updatedAt }} <span>  : تاريخ الطلب</span> </h5>
+    <h5>{{ orderItem.user.email }} <span>  : ايميل العميل</span> </h5>
+    <h5>{{ orderItem.user.phone }} <span>  : رقم الهاتف</span> </h5>
+    <!-- <h5>{{ orderItem.name }} <span>  : العنوان</span> </h5> -->
+    <h5>{{ orderItem.cartItems.length }} <span>  : اجمالي عدد الكتب المطلوبة</span> </h5>
+    <h5>{{ orderItem.totalOrderPrice }} <span>  : اجمالي السعر</span> </h5>
+    <h5>{{ orderItem.paymentMethodType }} <span>  : طريقة الدفع</span> </h5>
+
+
+    <h4>: الكتب المطلوبة</h4>
+    <ul>
+      <li *ngFor="let cartItem of orderItem.cartItems">{{ cartItem.book.bookName }} 
+           <span>عدد {{cartItem.quantity}} من </span>
+      </li>
+    </ul>
+
+
+  </div>
+</div>
+
+ 
+

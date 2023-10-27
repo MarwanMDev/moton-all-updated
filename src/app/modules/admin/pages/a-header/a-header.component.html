@@ -1,0 +1,103 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary header" >
+    <div class="container-fluid home">
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto= mb-2 mt-2 mb-0 move " >
+
+          <div class="login">
+           
+            <button type="button" class="btn btn-outline-secondary mb-2 mt-2" *ngIf="!islogin" routerLink="/login" >تسجيل الدخول</button>
+            <button type="button" class="btn btn-outline-danger mb-2 mt-2 " *ngIf="islogin" (click)="logOut()"  >تسجيل الخروج</button>
+            
+
+          </div>
+
+          <li *ngIf="islogin"  class="nav-item me-1">
+            <a class="nav-link" routerLink="massage" routerLinkActive="bg-dark text-white rounded ">الرسائل</a>
+          </li>
+
+
+         
+
+
+          <li *ngIf="islogin" class="nav-item me-1">
+            <a class="nav-link" routerLink="add-event" routerLinkActive="bg-dark text-white rounded ">الفعاليات</a>
+          </li>
+
+
+            <li class="dropdown" *ngIf="islogin" >
+              <a href="javascript:void(0)" class="dropbtn me-1" >المستخدمين</a>
+              <div class="dropdown-content">
+                <a routerLink="/Admins" routerLinkActive="bg-dark text-white rounded ">Owners</a>
+                <a routerLink="/Users" routerLinkActive="bg-dark text-white rounded ">Users</a>
+                <a routerLink="/Publisher" routerLinkActive="bg-dark text-white rounded ">Publisher</a>
+              </div>
+            </li>
+
+
+
+          <li *ngIf="islogin" class="nav-item me-1">
+            <a class="nav-link" routerLink="add-publisher" routerLinkActive="bg-dark text-white rounded ">اضافة مستخدم</a>
+          </li>
+
+
+            <li *ngIf="islogin" class="nav-item me-1">
+                <a class="nav-link" routerLink="order" routerLinkActive="bg-dark text-white rounded ">الطلبات</a>
+              </li>
+
+
+          <li *ngIf="islogin" class="nav-item me-1">
+            <a class="nav-link active" aria-current="page" routerLink="AddCategory" routerLinkActive="bg-dark text-white rounded ">اضافة فئة</a>
+          </li>
+
+
+          <li *ngIf="islogin" class="nav-item me-1">
+            <a class="nav-link" routerLink="ebook" routerLinkActive="bg-dark text-white rounded ">اضافة كتاب</a>
+          </li>
+
+
+
+         
+            <li class="dropdown" *ngIf="islogin" >
+              <a href="javascript:void(0)" class="dropbtn me-1">الكتب</a>
+              <div class="dropdown-content">
+                <a routerLink="/Electronic_Books" routerLinkActive="bg-dark text-white rounded ">الكتب الالكترونية</a>
+                <a routerLink="/Paper_Books" routerLinkActive="bg-dark text-white rounded ">الكتب الورقية</a>
+              </div>
+            </li>
+          
+
+         
+
+
+          
+          <li *ngIf="islogin" class="nav-item me-1">
+            <a class="nav-link "  routerLinkActive="bg-dark text-white rounded "  routerLink="home-panel" >الرئيسية</a>
+          </li>
+
+        </ul>
+
+        <i class="fab fa-facebook  logo "></i>
+
+            
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- <div class="dropdown show">
+    <a class="btn btn-secondary dropdown-toggle"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Dropdown link
+    </a>
+  
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <a class="dropdown-item" >Action</a>
+      <a class="dropdown-item" >Another action</a>
+      <a class="dropdown-item" >Something else here</a>
+    </div>
+  </div> -->
+
+
+
+  

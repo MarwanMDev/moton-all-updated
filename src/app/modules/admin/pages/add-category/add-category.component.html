@@ -1,0 +1,100 @@
+<!-- <app-a-header></app-a-header> -->
+
+
+
+<h1 class="text">اضافة فئة جديد</h1>
+
+
+<!-- [formGroup]="AddCategoryForm" -->
+<form (ngSubmit)="handelAddCategory(AddCategoryForm)" >
+    <div class="container">
+     <div class="row m">
+      
+
+       
+
+        <div class="file-input-container col  input-s">
+          <label for="fileInput1" class="file-input-label">
+            <span *ngIf="!image">اختر صوره</span>
+            <span *ngIf="image">Image selected: {{ image.name }}</span>
+            <input type="file"  id="fileInput1"  (change)="getimage($event)"  (change)="submitDataImage()" >
+          </label>
+          <div class="alert alert-danger" *ngIf="AddCategoryForm.get('image')?.errors && AddCategoryForm.get('image')?.touched " > 
+            <p  *ngIf="AddCategoryForm.get('image')?.getError('required')" class="m-0"> is Required </p>
+         </div>
+        </div>
+
+
+
+          <div class="col input-s ">
+            <input type="text"   class="form-control" formControlName="name"  placeholder="اسم الفئة">
+             <div class="alert alert-danger" *ngIf="AddCategoryForm.get('name')?.errors && AddCategoryForm.get('name')?.touched "> 
+                 <p  *ngIf="AddCategoryForm.get('name')?.getError('required')" class="m-0"> is Required </p>
+                 <p  *ngIf="AddCategoryForm.get('name')?.getError('minlength')" class="m-0"> too short Author Name </p>
+              </div>
+            </div>
+            
+
+           
+      
+     </div>
+
+
+  
+     
+     <div class="row m">
+ 
+  
+        <div class="col  select-o" >
+            <select  class="form-select form-select-lg mb-3" formControlName="language"  aria-label=".form-select-lg example" >
+              <option selected>لغة الكتاب</option>
+              <option value="english">English</option>
+              <option value="arabic">Arabic</option>
+            </select>
+          </div>
+
+          <div class="col  select-o" >
+            <select  class="form-select form-select-lg mb-3" formControlName="type"  aria-label=".form-select-lg example" >
+              <option selected>فئة الكتاب</option>
+              <option value="electronic">electronic</option>
+            </select>
+          </div>
+      
+     </div>
+
+     <div class="but">
+      <button [disabled]="AddCategoryForm.invalid" type="submit"  class="btn  btn-lg d-btn  btn-secondary  "   > اضف الان </button>
+     </div>
+  
+    </div>
+  
+  
+  </form>
+
+    <!-- get category that added -->
+
+
+
+        <h1 class="text">الفئات المضافة</h1>
+<div class="parent1">
+  <div class="content-pub" *ngFor="let categoryItem of category">
+      <img [src]="categoryItem.image" alt="">
+      <h5>{{ categoryItem.name }} <span>  : الاسم</span> </h5>
+      <h5>{{ categoryItem.type }} <span>  : الفئة</span> </h5>
+      <h5>{{ categoryItem.language }} <span>  : اللغة </span> </h5>
+
+
+    <div class="content-btn">
+      <button   class="btn  btn-lg d-btn  btn-secondary  "   (click)="onDeleteProdect(categoryItem._id)"    > حذف </button>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+<h1 class="text">Owners</h1>
+
+
+<div class="parent1">
+    <div class="content-pub" *ngFor="let PublisherItem of Admins">
+        <img [src]="PublisherItem.profileImage" alt="">
+        <h5>{{ PublisherItem._id }} <span>  : رقم تسجيل المستخدم</span> </h5>
+        <h5>{{ PublisherItem.name }} <span>  : اسم المستخدم</span> </h5>
+        <h5>{{ PublisherItem.email }} <span>  : ايميل المستخدم </span> </h5>
+
+
+      <div class="content-btn">
+        <button   class="btn  btn-lg d-btn  btn-secondary  "   (click)="Delete_User_And_Publisher(PublisherItem._id)"    > حذف </button>
+        </div>
+    </div>
+</div>

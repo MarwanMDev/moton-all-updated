@@ -1,0 +1,150 @@
+<h1 class="text">اضافة ناشر جديد</h1>
+
+<!--  [formGroup]="AddPublisher" -->
+
+<form (ngSubmit)="handelAddPublisher(AddPublisher)">
+    <div class="container">
+     <div class="row m">
+
+        <div class="col input-s ">
+            <input type="text"   class="form-control" formControlName="name"  placeholder="الاسم">
+             <div class="alert alert-danger" *ngIf="AddPublisher.get('name')?.errors && AddPublisher.get('name')?.touched "> 
+                 <p  *ngIf="AddPublisher.get('name')?.getError('required')" class="m-0"> is Required </p>
+                 <p  *ngIf="AddPublisher.get('name')?.getError('minlength')" class="m-0"> too short Author Name </p>
+                 <p  *ngIf="AddPublisher.get('name')?.getError('maxlength')" class="m-0"> too long Author Name </p>
+              </div>
+            </div>
+      
+     </div>
+
+
+     <div class="row m">
+
+      <div class="col  input-s ">
+          <input type="text"   class="form-control" formControlName="email"  placeholder="البريد الالكتروني">
+           <div class="alert alert-danger" *ngIf="AddPublisher.get('email')?.errors && AddPublisher.get('email')?.touched "> 
+               <p  *ngIf="AddPublisher.get('email')?.getError('required')" class="m-0"> is Required </p>
+            </div>
+          </div>
+    
+   </div>
+
+
+
+   <div class="row m">
+
+    <div class="col  input-s ">
+        <input type="tel"   class="form-control" formControlName="phone"  placeholder="رقم الهاتف">
+         <div class="alert alert-danger" *ngIf="AddPublisher.get('phone')?.errors && AddPublisher.get('phone')?.touched "> 
+             <p  *ngIf="AddPublisher.get('phone')?.getError('required')" class="m-0"> is Required </p>
+          </div>
+        </div>
+  
+ </div>
+
+
+
+
+     <div class="row m">
+    
+
+      <div class="file-input-container col  input-s">
+        <label for="fileInput1" class="file-input-label">
+          <span *ngIf="!image">اختر صوره</span>
+          <span *ngIf="image">Image selected: {{ image.name }}</span>
+          <input type="file"  id="fileInput1"  (change)="getimage($event)"  (change)="submitDataImage()" >
+        </label>
+        <div class="alert alert-danger" *ngIf="AddPublisher.get('profileimage')?.errors && AddPublisher.get('profileimage')?.touched " > 
+          <p  *ngIf="AddPublisher.get('profileimage')?.getError('required')" class="m-0"> is Required </p>
+       </div>
+      </div>
+
+     </div>
+     
+  
+
+
+     
+
+
+   <div class="row m">
+    <div class="col  select-o input-s" >
+      <select  class="form-select form-select-lg mb-3" formControlName="role"  aria-label=".form-select-lg example" >
+        <option selected>الدور</option>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+        <option value="publisher">Publisher</option>
+      </select>
+    </div>
+   </div>
+   
+
+
+
+
+   <div class="row m">
+
+    <div class="col input-s ">
+        <input type="password"   class="form-control" formControlName="password"  placeholder="كلمة السر">
+         <div class="alert alert-danger" *ngIf="AddPublisher.get('password')?.errors && AddPublisher.get('password')?.touched "> 
+             <p  *ngIf="AddPublisher.get('password')?.getError('required')" class="m-0"> is Required </p>
+             <p  *ngIf="AddPublisher.get('password')?.getError('pattern')" class="m-0"> is sort </p>
+
+          </div>
+        </div>
+  
+ </div>
+
+
+ <div class="row m">
+
+  <div class="col input-s ">
+      <input type="password"   class="form-control" formControlName="confirmPassword"  placeholder="اعادة كلمة السر">
+       <div class="alert alert-danger" *ngIf="AddPublisher.get('confirmPassword')?.errors && AddPublisher.get('confirmPassword')?.touched "> 
+           <p  *ngIf="AddPublisher.get('confirmPassword')?.getError('required')" class="m-0"> is Required </p>
+        </div>
+      </div>
+
+</div>
+
+
+
+
+     
+     
+
+     <div class="but">
+      <button [disabled]="AddPublisher.invalid" type="submit"  class="btn  btn-lg d-btn  btn-secondary  " > اضف الان </button>
+     </div>
+  
+    </div>
+  
+  
+  </form>
+
+
+
+   <!-- get publisher that added -->
+
+
+
+
+
+   <h1 class="text">الناشرون الجدد</h1>
+   <div class="parent1"  >
+     <div class="content-pub"  *ngFor="let PublisherItem of Publisher"  >
+         <img [src]="PublisherItem.profileImage" alt="">
+         <h5 >{{ PublisherItem._id }} <span  >  : رقم تسجيل المستخدم</span> </h5>
+         <h5>{{ PublisherItem.name }} <span >  : اسم المستخدم</span> </h5>
+         <h5>{{ PublisherItem.email }} <span >  : البريد الالكتروني </span> </h5>
+         <h5>{{ PublisherItem.role }} <span >  : الدور  </span> </h5>
+
+         <!-- <button (click)="checkData(PublisherItem.role)"> dknvdfklnvf</button> -->
+   
+       <div class="content-btn">
+         <button   class="btn  btn-lg d-btn  btn-secondary  "   (click)="onDeletePubliser(PublisherItem._id)"    > حذف </button>
+         </div>
+     </div>
+   </div>
+ 
+   <!-- how to creat ngif in angular? -->

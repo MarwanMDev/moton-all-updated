@@ -1,0 +1,182 @@
+
+.container{
+    width: 50%;
+    border-radius: 25px;
+
+}
+
+.file-input-container label  {
+    padding: 3.5%;
+}
+
+
+.file-input-label {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+
+.input-s input {
+
+    padding: 2%;
+}
+
+
+.parent1{
+    margin: auto;
+    margin-top: 7%;
+    width: 80%;
+   display: flex;
+   /* justify-content: space-between; */
+   justify-content: space-evenly;
+    flex-wrap: wrap;
+
+}
+
+
+.content-pub{
+    border-radius: 25px;
+    margin-top: 5%;
+    text-align: center;
+    width: 45%;
+    background-color: #E5E4E4;
+    
+}
+
+.content-pub h5{
+
+    text-align: right;
+    padding-top: 2%;
+    color: rgba(0, 0, 0, 0.6);
+
+}
+
+.content-pub span{
+    float: right;
+    color: rgba(23, 63, 95, 1);
+    padding-right: 5%;
+
+}
+
+.content-pub img{
+    margin: 3% 0%;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-position: left top;    
+    background-repeat: no-repeat;
+
+}
+
+.content-btn{
+    text-align: center;
+
+    margin: 7% 0%;
+}
+
+.content-btn button{
+    border-radius: 10px;
+    margin: auto;
+    width: 70%;
+}
+
+
+.d-btn{
+    width: 25%;
+    height: 15%;
+
+}
+
+
+
+
+
+
+/* Media Query for smallest screens (e.g., smartphones) */
+@media screen and (max-width: 700px) {
+    h1 {
+        margin-top: 20%;
+    }
+
+    .container {
+        width: 90%;
+        height: auto;
+    }
+    .input-s{
+        margin-top: 3%;
+        
+    }
+
+    .but button{
+        margin: auto;
+        margin: 5% 0%;
+        width: 50%;
+        
+        /* width: auto; */
+    }
+
+    .parent1{
+        margin: auto;
+        text-align: center;
+        width: 100%;
+    }
+
+    .content-pub {
+        width: 90%;
+        height: auto;
+        margin-top: 10% ;
+
+    }
+
+    .content-pub img {
+        width: 150px;
+        height: 150px;
+    }
+
+}
+
+
+
+
+
+/* Media Query for tablets (e.g., screens with a width between 701px and 900px) */
+@media screen and (min-width: 701px) and (max-width: 1090px) {
+    h1 {
+        margin-top: 10%;
+    }
+
+    .container {
+        margin: auto;
+        text-align: center;
+        width: 80%;
+    }
+
+    .parent1{
+        margin: auto;
+        text-align: center;
+        width: 100%;
+    }
+
+    .content-pub {
+        width: 46%;
+        margin: 2%;
+        margin-top: 10% ;
+
+    }
+
+    .content-pub span{
+        font-size: medium;
+    }
+
+    .content-btn {
+        margin-top: 5%;
+    }
+
+    .content-pub img {
+        width: 150px;
+        height: 150px;
+    }
+}

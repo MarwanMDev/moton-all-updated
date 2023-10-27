@@ -1,0 +1,48 @@
+<!-- [formGroup]="login_form" -->
+<form (ngSubmit)="handelLogin(login_form)" >
+    <div class="container">
+
+     <div class="row m">
+
+      <div class="col input-s ">
+          <input type="text"   class="form-control" formControlName="email"  placeholder="البريد الالكتروني">
+           <div class="alert alert-danger" *ngIf="login_form.get('email')?.errors && login_form.get('email')?.touched "> 
+               <p  *ngIf="login_form.get('email')?.getError('required')" class="m-0"> is Required </p>
+            </div>
+          </div>
+    
+   </div>
+
+
+
+
+   <div class="row m">
+
+    <div class="col input-s ">
+        <input type="password"   class="form-control" formControlName="password"  placeholder="كلمة السر">
+         <div class="alert alert-danger" *ngIf="login_form.get('password')?.errors && login_form.get('password')?.touched "> 
+             <p  *ngIf="login_form.get('password')?.getError('required')" class="m-0"> is Required </p>
+          </div>
+        </div>
+  
+ </div>
+     
+     
+
+     <div class="but">
+      <button [disabled]="login_form.invalid" type="submit"  class="btn  btn-lg d-btn  btn-secondary  " > 
+
+        <i class="fas fa-spinner fa-spin" *ngIf="isLodaing"></i>
+        <span *ngIf="!isLodaing">تسجيل الدخول</span>
+      </button>
+
+     </div>
+  
+    </div>
+  
+  
+  </form>
+
+
+  <button   class="btn  btn-lg d-btn  btn-secondary  "  routerLink="/cate" > اعاده كلمه السر </button>
+
