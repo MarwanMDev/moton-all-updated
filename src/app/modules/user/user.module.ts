@@ -34,6 +34,14 @@ import { CategoryComponent } from './pages/category/category.component';
 import { CategoryPipe } from 'src/app/core/pipes/category.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { UserLayoutComponent } from './pages/user-layout/user-layout.component';
+import { CartService } from 'src/app/core/services/cart/cart.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from 'src/app/auth.interceptor';
+import { ProfileService } from 'src/app/core/services/profile/profile.service';
+import { ReviewService } from 'src/app/core/services/review/review.service';
+import { OrderService } from 'src/app/core/services/order/order.service';
+import { WishlistService } from 'src/app/core/services/whishlist/wishlist.service';
+import { ContactService } from 'src/app/core/services/contact/contact.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +84,46 @@ import { UserLayoutComponent } from './pages/user-layout/user-layout.component';
     NgxPaginationModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    CartService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    ProfileService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    ReviewService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    OrderService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    WishlistService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    ContactService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    SortPipe,
+    FilterPipe,
+  ],
   exports: [],
 })
 export class UserModule {}
