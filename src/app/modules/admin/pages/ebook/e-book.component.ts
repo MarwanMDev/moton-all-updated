@@ -1,9 +1,8 @@
-import { BookIF } from '../../interface/book-if';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AddNewBookService } from '../../Service/add-new-book.service';
-import { AuthService } from '../../Service/auth.service';
-import { AddCatService } from '../../Service/add-cat.service';
+import { CategoryService } from 'src/app/core/services/category/category.service';
+import { Book } from 'src/app/core/interfaces/book';
+import { BooksService } from 'src/app/core/services/books/books.service';
 
 @Component({
   selector: 'app-e-book',
@@ -12,9 +11,8 @@ import { AddCatService } from '../../Service/add-cat.service';
 })
 export class EBookComponent implements OnInit {
   constructor(
-    private _AddNewBookService: AddNewBookService,
-    private _AuthService: AuthService,
-    private _AddCatService: AddCatService
+    private booksService: BooksService,
+    private categoryService: CategoryService
   ) {}
 
   // get image added
@@ -30,27 +28,21 @@ export class EBookComponent implements OnInit {
   submitDataImage() {
     let formData = new FormData();
     formData.set('image', this.image);
+    this.booksService.uploadBookImage(formData).subscribe({
+      next: (res) => {
+        // console.log(res);
+        this.saveImg = res.filename;
+        // console.log(this.saveImg);
+        // this.AddBook.setValue( value:this.fileName)
 
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._AddNewBookService
-        .Upload_image(formData, userToken)
-        .subscribe({
-          next: (res) => {
-            // console.log(res);
-            this.saveImg = res.filename;
-            // console.log(this.saveImg);
-            // this.AddBook.setValue( value:this.fileName)
-
-            this.AddBook.patchValue({
-              image: this.saveImg,
-            });
-          },
-          error: (err) => {
-            console.log('Error fetching Book data:', err);
-          },
+        this.AddBook.patchValue({
+          image: this.saveImg,
         });
-    }
+      },
+      error: (err) => {
+        console.log('Error fetching Book data:', err);
+      },
+    });
   }
 
   // get file that added
@@ -67,27 +59,21 @@ export class EBookComponent implements OnInit {
   submitData() {
     let formData = new FormData();
     formData.set('pdf', this.file);
+    this.booksService.uploadBookPfd(formData).subscribe({
+      next: (res) => {
+        // console.log(res);
+        this.fileName = res.filename;
+        // console.log(this.fileName);
+        // this.AddBook.setValue( value:this.fileName)
 
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._AddNewBookService
-        .Upload_pfd(formData, userToken)
-        .subscribe({
-          next: (res) => {
-            // console.log(res);
-            this.fileName = res.filename;
-            // console.log(this.fileName);
-            // this.AddBook.setValue( value:this.fileName)
-
-            this.AddBook.patchValue({
-              pdf: this.fileName,
-            });
-          },
-          error: (err) => {
-            console.log('Error fetching Book data:', err);
-          },
+        this.AddBook.patchValue({
+          pdf: this.fileName,
         });
-    }
+      },
+      error: (err) => {
+        console.log('Error fetching Book data:', err);
+      },
+    });
   }
 
   AddBook: FormGroup = new FormGroup({
@@ -120,31 +106,23 @@ export class EBookComponent implements OnInit {
     pdf: new FormControl(null, [Validators.required]),
   });
 
-  handelAddBook(AddBook: FormGroup) {
-    if (this.AddBook.valid) {
-      const userToken = localStorage.getItem('userToken');
-      if (userToken) {
-        const formData = this.AddBook.value;
+  handelAddBook(addBookForm: FormGroup) {
+    if (addBookForm.valid) {
+      this.booksService.addBook(addBookForm.value).subscribe({
+        next: (response) => {
+          // console.log(this.selectedImage2?.name);
 
-        // Add new category
-        this._AddNewBookService
-          .Add_book(formData, userToken)
-          .subscribe({
-            next: (response) => {
-              // console.log(this.selectedImage2?.name);
-
-              // console.log('book added:', response);
-              alert('تم اضافه الكتاب');
-              this.ngOnInit(); // Refresh the list of categories
-              this.AddBook.reset(); // Reset the form
-              this.fileName = '';
-            },
-            error: (err) => {
-              console.log('Error adding category:', err);
-              // Handle the error in a way that makes sense for your application
-            },
-          });
-      }
+          // console.log('book added:', response);
+          alert('تم اضافه الكتاب');
+          this.ngOnInit(); // Refresh the list of categories
+          addBookForm.reset(); // Reset the form
+          this.fileName = '';
+        },
+        error: (err) => {
+          console.log('Error adding category:', err);
+          // Handle the error in a way that makes sense for your application
+        },
+      });
     }
   }
 
@@ -159,25 +137,22 @@ export class EBookComponent implements OnInit {
 
   // delete one Book
   onDeleteProdect(id: string) {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._AddNewBookService.delete_book(id, userToken).subscribe({
-        next: (res) => {
-          alert('تم حذف الكتاب بنجاح');
-          this.checkData();
-        },
-        error: (err) => {
-          console.log('Error fetching Book data:', err);
-        },
-      });
-    }
+    this.booksService.deleteBook(id).subscribe({
+      next: (res) => {
+        alert('تم حذف الكتاب بنجاح');
+        this.checkData();
+      },
+      error: (err) => {
+        console.log('Error fetching Book data:', err);
+      },
+    });
   }
 
   // get all books after doing any change
-  Book: BookIF[] = [];
+  Book: Book[] = [];
 
   checkData() {
-    this._AddNewBookService.get_book().subscribe({
+    this.booksService.getAllBooks().subscribe({
       next: (res) => {
         this.Book = res.data;
         // console.log(res.data[0]);
@@ -191,7 +166,7 @@ export class EBookComponent implements OnInit {
   category: any[] = [];
 
   get_category() {
-    this._AddCatService.get_cat().subscribe({
+    this.categoryService.getAllCategories().subscribe({
       next: (res) => {
         this.category = res.data;
       },

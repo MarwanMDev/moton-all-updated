@@ -1,6 +1,6 @@
-import { BookIF } from '../../interface/book-if';
 import { Component, OnInit } from '@angular/core';
-import { AddNewBookService } from '../../Service/add-new-book.service';
+import { Book } from 'src/app/core/interfaces/book';
+import { BooksService } from 'src/app/core/services/books/books.service';
 
 @Component({
   selector: 'app-all-electronic-books',
@@ -8,30 +8,30 @@ import { AddNewBookService } from '../../Service/add-new-book.service';
   styleUrls: ['./all-electronic-books.component.css'],
 })
 export class AllElectronicBooksComponent implements OnInit {
-  constructor(private _AddNewBookService: AddNewBookService) {}
+  constructor(private booksService: BooksService) {}
 
   ngOnInit(): void {
     this.checkData();
   }
 
-  Book: BookIF[] = [];
+  books: Book[] = [];
 
   booksize: number = 0;
 
   checkData() {
-    this._AddNewBookService.get_book().subscribe({
+    this.booksService.getAllBooks().subscribe({
       next: (res) => {
-        console.log(this.Book);
+        console.log(this.books);
 
-        this.Book = [];
+        this.books = [];
         let book_info = res.data;
 
         for (let i = 0; i < book_info.length; i++) {
           if (book_info[i].type === 'electronic') {
-            this.Book.push(book_info[i]);
+            this.books.push(book_info[i]);
           }
         }
-        this.booksize = this.Book.length;
+        this.booksize = this.books.length;
         console.log(this.booksize);
       },
       error: (err) => {
@@ -40,18 +40,15 @@ export class AllElectronicBooksComponent implements OnInit {
     });
   }
 
-  onDeleteProdect(id: string) {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._AddNewBookService.delete_book(id, userToken).subscribe({
-        next: (res) => {
-          alert('تم حذف الكتاب بنجاح');
-          this.checkData();
-        },
-        error: (err) => {
-          console.log('Error fetching Book data:', err);
-        },
-      });
-    }
+  onDeleteBook(id: string) {
+    this.booksService.deleteBook(id).subscribe({
+      next: (res) => {
+        alert('تم حذف الكتاب بنجاح');
+        this.checkData();
+      },
+      error: (err) => {
+        console.log('Error fetching Book data:', err);
+      },
+    });
   }
 }

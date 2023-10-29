@@ -1,114 +1,186 @@
-
-<div class="parent1">
-
- 
-
-  <div class="content-pub" >
-    <h2>عدد الكتب الورقية</h2>
-    <h5  >{{ TotalNumberOfPaper }}  </h5>
-
-
-  <div class="content-btn">
-    <button   class="btn  btn-lg d-btn  btn-secondary  "   routerLink="/Paper_Books"   > الكتب الالكترونية </button>
-    </div>
-</div>
-
-
-  <div class="content-pub" >
-    <h2>عدد الكتب الالكترونية</h2>
-    <h5  >{{ TotalNumberOfElectronic }}  </h5>
-
-
-  <div class="content-btn">
-    <button   class="btn  btn-lg d-btn  btn-secondary  "   routerLink="/Electronic_Books"   > الكتب الالكترونية </button>
-    </div>
-</div>
-
-
-  <div class="content-pub" >
-    <h2>عدد الطلبات</h2>
-    <h5>{{ TotalOrders }}  </h5>
-
-
-  <div class="content-btn">
-    <button   class="btn  btn-lg d-btn  btn-secondary  "   routerLink="/order"   > الطلبات </button>
-    </div>
-</div>
-
-    <div class="content-pub" >
-      <h2>المبيعات</h2>
-      <h5>{{ totalSalesAchieved }}  </h5>
-
-
-    <div class="content-btn">
-      <button   class="btn  btn-lg d-btn  btn-secondary  "      > الطلبات </button>
+<div class="container p-5">
+  <div
+    class="card"
+    style="background-color: transparent; border: none"
+  >
+    <div class="card-body">
+      <div class="row text-center p-2 gy-5">
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ 'home.number_of_paper_books' | transloco }}
+              </h5>
+              <p class="card-text">
+                {{ TotalNumberOfPaper }}
+              </p>
+              <a
+                href="#"
+                [routerLink]="'/admin/paper-books'"
+                class="btn"
+                style="background-color: #ed553b; color: #ffffff"
+                >{{ 'navigation.view_all' | transloco }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ 'home.number_of_electronic_books' | transloco }}
+              </h5>
+              <p class="card-text">
+                {{ TotalNumberOfElectronic }}
+              </p>
+              <a
+                href="#"
+                [routerLink]="'/admin/electronic-books'"
+                class="btn"
+                style="background-color: #ed553b; color: #ffffff"
+                >{{ 'navigation.view_all' | transloco }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ 'navigation.orders' | transloco }}
+              </h5>
+              <p class="card-text">
+                {{ TotalOrders }}
+              </p>
+              <a
+                href="#"
+                [routerLink]="'/admin/orders'"
+                class="btn"
+                style="background-color: #ed553b; color: #ffffff"
+                >{{ 'navigation.view_all' | transloco }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ 'home.sales' | transloco }}
+              </h5>
+              <p class="card-text">
+                {{
+                  totalSalesAchieved.toLocaleString('ar-EG', {
+                    style: 'currency',
+                    currency: 'EGP'
+                  })
+                }}
+              </p>
+              <a
+                href="#"
+                class="btn"
+                style="background-color: #ed553b; color: #ffffff"
+                >{{ 'navigation.view_all' | transloco }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ 'navigation.messages' | transloco }}
+              </h5>
+              <p class="card-text">
+                {{ TotalNumberOfMessage }}
+              </p>
+              <a
+                href="#"
+                [routerLink]="'/admin/messages'"
+                class="btn"
+                style="background-color: #ed553b; color: #ffffff"
+                >{{ 'navigation.view_all' | transloco }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ 'home.number_of_admins' | transloco }}
+              </h5>
+              <p class="card-text">
+                {{ TotalNumberOfAdmins }}
+              </p>
+              <a
+                href="#"
+                [routerLink]="'/admin/admins'"
+                class="btn"
+                style="background-color: #ed553b; color: #ffffff"
+                >{{ 'navigation.view_all' | transloco }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ 'home.number_of_publishers' | transloco }}
+              </h5>
+              <p class="card-text">
+                {{ TotalNumberOfPublishers }}
+              </p>
+              <a
+                href="#"
+                [routerLink]="'/admin/publishers'"
+                class="btn"
+                style="background-color: #ed553b; color: #ffffff"
+                >{{ 'navigation.view_all' | transloco }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ 'home.number_of_users' | transloco }}
+              </h5>
+              <p class="card-text">
+                {{ TotalNumberOfUsers }}
+              </p>
+              <a
+                href="#"
+                [routerLink]="'/admin/users'"
+                class="btn"
+                style="background-color: #ed553b; color: #ffffff"
+                >{{ 'navigation.view_all' | transloco }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ 'home.number_of_events' | transloco }}
+              </h5>
+              <p class="card-text">
+                {{ TotalNumberOfEvents }}
+              </p>
+              <a
+                href="#"
+                [routerLink]="'/admin/events'"
+                class="btn"
+                style="background-color: #ed553b; color: #ffffff"
+                >{{ 'navigation.view_all' | transloco }}</a
+              >
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
-
-
-
-  <div class="content-pub" >
-    <h2>عدد الرسائل</h2>
-    <h5  >{{ TotalNumberOfMessage }}  </h5>
-  
-  
-  <div class="content-btn">
-    <button   class="btn  btn-lg d-btn  btn-secondary  "   routerLink="/massage"   > الرسائل </button>
     </div>
-  </div>
-
-
-
-  <div class="content-pub" >
-    <h2>عدد المالكين</h2>
-    <h5  >{{ TotalNumberOfAdmins }}  </h5>
-  
-  
-  <div class="content-btn">
-    <button   class="btn  btn-lg d-btn  btn-secondary  "   routerLink="/Admins"   > المالكين </button>
-    </div>
-  </div>
-
-
-  <div class="content-pub" >
-    <h2>عدد الناشرين</h2>
-    <h5  >{{ TotalNumberOfPublishers }}  </h5>
-  
-  
-  <div class="content-btn">
-    <button   class="btn  btn-lg d-btn  btn-secondary  "   routerLink="/Publisher"   > الناشرين </button>
-    </div>
-  </div>
-
-
-  <div class="content-pub" >
-    <h2>عدد المستخدمين</h2>
-    <h5  >{{ TotalNumberOfUsers }}  </h5>
-
-
-  <div class="content-btn">
-    <button   class="btn  btn-lg d-btn  btn-secondary  "   routerLink="/Users"   > المستخدمين </button>
-    </div>
-</div>
-
-
-
-
-<div class="content-pub" >
-  <h2>عدد الفعاليات</h2>
-  <h5  >{{ TotalNumberOfEvents }}  </h5>
-
-
-<div class="content-btn">
-  <button   class="btn  btn-lg d-btn  btn-secondary  "   routerLink="/add-event"   > الفعاليات </button>
   </div>
 </div>
-
-
-
-
-
-</div>
-
-
-

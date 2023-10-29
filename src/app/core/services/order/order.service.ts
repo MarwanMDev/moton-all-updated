@@ -58,4 +58,8 @@ export class OrderService {
   getPaymobTokens(): Observable<any> {
     return this.client.get(BASE_URL + `order/paymobTokens`);
   }
+
+  GetTotalPrice(): Observable<any> {
+    return this.client.get<any>(BASE_URL + 'order/totalPrices');
+  }
 }

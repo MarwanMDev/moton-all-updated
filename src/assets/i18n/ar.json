@@ -23,7 +23,14 @@
     "orders": "طلبات",
     "please_confirm_order_and_payment": "يرجى تأكيد الطلب والدفع",
     "place_order_now_and_confirm_payment": "ضع الطلب الآن وقم بتأكيد الدفع",
-    "payment_done": "تم الدفع بنجاح"
+    "payment_done": "تم الدفع بنجاح",
+    "add_book": "اضافة كتاب",
+    "messages": "الرسائل",
+    "add_event": "إضافة فعالية",
+    "users": "المستخدمين",
+    "admins": "المدراء",
+    "publishers": "الناشرين",
+    "add_publisher": "إضافة ناشر"
   },
   "login": {
     "email_address": "البريد الالكتروني",
@@ -101,7 +108,25 @@
     "message_sent": "تم ارسال الرسالة بنجاح",
     "book_added_to_wishlist": "تمت إضافة الكتاب إلى قائمة الرغبات",
     "book_removed_from_wishlist": "تمت إزالة الكتاب من قائمة الرغبات",
-    "no_events": "لا توجد فعاليات الآن"
+    "no_events": "لا توجد فعاليات الآن",
+    "add_category": "اضافة فئة جديدة",
+    "category_name": "اسم الفئة",
+    "category_language": "لغة الفئة",
+    "add": "اضف",
+    "choose_picture": "اختر صوره",
+    "categories": "الفئات",
+    "number_of_paper_books": "عدد الكتب الورقية",
+    "number_of_electronic_books": "عدد الكتب الالكترونية",
+    "sales": "المبيعات",
+    "number_of_admins": "عدد المدراء",
+    "number_of_publishers": "عدد الناشرين",
+    "number_of_users": "عدد المستخدمين",
+    "number_of_events": "عدد الفعاليات",
+    "event_title": "عنوان الفعالية",
+    "address": "العنوان",
+    "delete_event": "حذف الفعالية",
+    "id": "رقم تسجيل",
+    "actions": "أجراءات"
   },
   "footer": {
     "social_title": "تواصل معنا على شبكات التواصل الاجتماعي",

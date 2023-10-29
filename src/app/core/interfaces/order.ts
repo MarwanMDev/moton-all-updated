@@ -1,9 +1,9 @@
 import { CartItem } from './cartItem';
 import { shippingAddress } from './shippingAddress';
-import { User } from './user';
+import { UserProfile } from './userProfile';
 
 export interface IOrder {
-  user: User;
+  user: UserProfile;
   cartItems: CartItem[];
   taxPrice: number;
   shippingAddress: shippingAddress;
@@ -16,4 +16,5 @@ export interface IOrder {
   deliveredAt: Date;
   _id: string;
   createdAt: Date;
+  updatedAt: Date;
 }

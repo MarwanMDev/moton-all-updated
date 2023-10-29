@@ -1,16 +1,34 @@
-<h1 class="text">Owners</h1>
-
-
-<div class="parent1">
-    <div class="content-pub" *ngFor="let PublisherItem of Admins">
-        <img [src]="PublisherItem.profileImage" alt="">
-        <h5>{{ PublisherItem._id }} <span>  : رقم تسجيل المستخدم</span> </h5>
-        <h5>{{ PublisherItem.name }} <span>  : اسم المستخدم</span> </h5>
-        <h5>{{ PublisherItem.email }} <span>  : ايميل المستخدم </span> </h5>
-
-
-      <div class="content-btn">
-        <button   class="btn  btn-lg d-btn  btn-secondary  "   (click)="Delete_User_And_Publisher(PublisherItem._id)"    > حذف </button>
-        </div>
+<div class="container p-5" style="min-height: 58vh">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">
+        {{ 'navigation.admins' | transloco }}
+      </h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let admin of admins">
+            <th scope="row">{{ admin._id }}</th>
+            <td>{{ admin.name }}</td>
+            <td>{{ admin.email }}</td>
+            <td colspan="3">
+              <button
+                class="btn btn-danger"
+                (click)="deleteAdmin(admin._id)"
+              >
+                {{ 'home.delete' | transloco }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

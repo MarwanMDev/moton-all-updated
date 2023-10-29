@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../Service/auth.service';
-import { UserIf } from '../../interface/user-if';
-import { UsersSerService } from '../../Service/users-ser.service';
+import { UserService } from 'src/app/core/services/user/user.service';
+import { User } from 'src/app/core/interfaces/user';
 
 @Component({
   selector: 'app-show-users',
@@ -9,49 +8,42 @@ import { UsersSerService } from '../../Service/users-ser.service';
   styleUrls: ['./show-users.component.css'],
 })
 export class ShowUsersComponent implements OnInit {
-  constructor(private _UsersSerService: UsersSerService) {}
+  users: User[] = [];
+
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.checkData_User();
+    this.getAllUser();
   }
 
-  Userss: UserIf[] = [];
+  getAllUser() {
+    this.userService.getAllUsers().subscribe({
+      next: (res) => {
+        this.users = [];
 
-  checkData_User() {
-    // const userToken = this._AuthService.userdata.getValue();
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._UsersSerService.get_(userToken).subscribe({
-        next: (res) => {
-          this.Userss = [];
+        let resOfUsers = res.data;
 
-          let resOfUsers = res.data;
-
-          for (let i = 0; i < resOfUsers.length; i++) {
-            if (resOfUsers[i].role === 'user') {
-              this.Userss.push(resOfUsers[i]);
-            }
+        for (let i = 0; i < resOfUsers.length; i++) {
+          if (resOfUsers[i].role === 'user') {
+            this.users.push(resOfUsers[i]);
           }
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
-  Delete_User_And_Publisher(id: string) {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._UsersSerService.delete_(id, userToken).subscribe({
-        next: (res) => {
-          alert('تم حذف الناشر');
-          this.ngOnInit();
-        },
-        error: (err) => {
-          console.log('Error fetching Message data:', err);
-        },
-      });
-    }
+  deleteUser(id: string) {
+    this.userService.deleteUser(id).subscribe({
+      next: (res) => {
+        alert('تم حذف الناشر');
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log('Error fetching Message data:', err);
+      },
+    });
   }
 }

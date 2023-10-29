@@ -4,10 +4,9 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { AddCatService } from '../../Service/add-cat.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CategoryIf } from '../../interface/category-if';
-import { AuthService } from '../../Service/auth.service';
+import { Category } from 'src/app/core/interfaces/category';
+import { CategoryService } from 'src/app/core/services/category/category.service';
 
 @Component({
   selector: 'app-add-category',
@@ -15,69 +14,49 @@ import { AuthService } from '../../Service/auth.service';
   styleUrls: ['./add-category.component.css'],
 })
 export class AddCategoryComponent implements OnInit {
-  constructor(
-    private categoryService: AddCatService,
-    private _AuthService: AuthService
-  ) {}
-
-  // get image added
-  image: any;
-  getimage(event: any) {
-    this.image = event.target.files[0];
-
-    // console.log(this.image);
-  }
-
   saveImg: string = '';
 
-  submitDataImage() {
-    let formData = new FormData();
-    formData.set('image', this.image);
-
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this.categoryService
-        .Upload_image(formData, userToken)
-        .subscribe({
-          next: (res) => {
-            // console.log(res);
-            this.saveImg = res.filename;
-            // console.log(this.saveImg);
-            // this.AddBook.setValue( value:this.fileName)
-
-            this.AddCategoryForm.patchValue({
-              image: this.saveImg,
-            });
-          },
-          error: (err) => {
-            console.log('Error fetching Book data:', err);
-          },
-        });
-    }
-  }
-
-  AddCategoryForm: FormGroup = new FormGroup({
+  addCategoryForm: FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     image: new FormControl(null, [Validators.required]),
-
     language: new FormControl(null, [Validators.required]),
-
     type: new FormControl(null, [Validators.required]),
   });
 
-  handelAddCategory(AddCategoryForm: FormGroup) {
-    if (this.AddCategoryForm.valid) {
-      const userToken = localStorage.getItem('userToken');
-      if (userToken) {
-        const formData = this.AddCategoryForm.value;
+  constructor(private categoryService: CategoryService) {}
 
-        // Add new category
-        this.categoryService.Add_Cat(formData, userToken).subscribe({
+  // get image added
+  image: any;
+  getImage(event: any) {
+    this.image = event.target.files[0];
+  }
+
+  submitImageData() {
+    let formData = new FormData();
+    formData.set('image', this.image);
+
+    this.categoryService.uploadImage(formData).subscribe({
+      next: (res) => {
+        this.saveImg = res.filename;
+        this.addCategoryForm.patchValue({
+          image: this.saveImg,
+        });
+      },
+      error: (err) => {
+        console.log('Error fetching Book data:', err);
+      },
+    });
+  }
+
+  handelAddCategory(addCategoryForm: FormGroup) {
+    if (addCategoryForm.valid) {
+      this.categoryService
+        .addCategory(addCategoryForm.value)
+        .subscribe({
           next: () => {
             alert('تم اضافة الفئة بنجاح');
             this.ngOnInit(); // Refresh the list of categories
-            this.AddCategoryForm.reset(); // Reset the form
-            // this.selectedImage1 = null;
+            this.addCategoryForm.reset(); // Reset the form
             this.image = null;
           },
           error: (err) => {
@@ -85,7 +64,6 @@ export class AddCategoryComponent implements OnInit {
             console.log('Error adding category:', err);
           },
         });
-      }
     }
   }
 
@@ -98,27 +76,24 @@ export class AddCategoryComponent implements OnInit {
   }
 
   // delete one category
-  onDeleteProdect(id: string) {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this.categoryService.delete_cat(id, userToken).subscribe({
-        next: () => {
-          alert('تم حذف الفئة بنجاح');
-          this.ngOnInit();
-        },
-        error: (err) => {
-          console.log('Error fetching category data:', err);
-        },
-      });
-    }
+  onDeleteCategory(id: string) {
+    this.categoryService.deleteCategory(id).subscribe({
+      next: () => {
+        alert('تم حذف الفئة بنجاح');
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log('Error fetching category data:', err);
+      },
+    });
   }
 
   // get all category after doing any change
-  category: CategoryIf[] = [];
+  categories: Category[] = [];
   checkData() {
-    this.categoryService.get_cat().subscribe({
+    this.categoryService.getAllCategories().subscribe({
       next: (res) => {
-        this.category = res.data;
+        this.categories = res.data;
       },
       error: (err) => {
         console.log(err);

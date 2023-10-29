@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OrdersService } from '../../Service/orders.service';
-import { OrderModel } from '../../models/order.model';
+import { IOrder } from 'src/app/core/interfaces/order';
+import { OrderService } from 'src/app/core/services/order/order.service';
 
 @Component({
   selector: 'app-order',
@@ -8,29 +8,26 @@ import { OrderModel } from '../../models/order.model';
   styleUrls: ['./order.component.css'],
 })
 export class OrderComponent implements OnInit {
-  constructor(private _OrdersService: OrdersService) {}
+  constructor(private ordersService: OrderService) {}
 
-  orders: OrderModel[] = [];
+  orders: IOrder[] = [];
 
   ngOnInit(): void {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._OrdersService.get_Orders(userToken).subscribe({
-        next: (res) => {
-          this.orders = res.data;
-          console.log(res.data);
+    this.ordersService.getAllOrders().subscribe({
+      next: (res) => {
+        this.orders = res.data;
+        console.log(res.data);
 
-          for (const order of this.orders) {
-            for (const cartItem of order.cartItems) {
-              const bookName: string = cartItem.book.bookName;
-              console.log(`Book Name: ${bookName}`);
-            }
+        for (const order of this.orders) {
+          for (const cartItem of order.cartItems) {
+            const bookName: string = cartItem.book.bookName;
+            console.log(`Book Name: ${bookName}`);
           }
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

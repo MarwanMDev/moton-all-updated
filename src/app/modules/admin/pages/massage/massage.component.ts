@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AdminMessageService } from '../../Service/admin-message.service';
-import { MessageIF } from '../../interface/message-if';
+import { ContactService } from 'src/app/core/services/contact/contact.service';
+import { Message } from 'src/app/core/interfaces/message';
 
 @Component({
   selector: 'app-massage',
@@ -9,44 +8,42 @@ import { MessageIF } from '../../interface/message-if';
   styleUrls: ['./massage.component.css'],
 })
 export class MassageComponent implements OnInit {
-  constructor(private _AdminMessageService: AdminMessageService) {}
+  messages: Message[] = [];
+  dtOptions: DataTables.Settings = {};
+
+  constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {
-    this.checkData();
+    // this.dtOptions = {
+    //   pagingType: 'full_numbers',
+    //   pageLength: 5,
+    //   processing: true,
+    //   lengthMenu: [5, 10, 25],
+    //   dom: 'Blfrtip',
+    // };
+    this.getAllMessages();
   }
 
-  onDeleteProdect(id: string) {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._AdminMessageService
-        .delete_Message(id, userToken)
-        .subscribe({
-          next: (res) => {
-            alert('تم حذف الرسالة بنجاح');
-            this.ngOnInit();
-          },
-          error: (err) => {
-            console.log('Error fetching Message data:', err);
-          },
-        });
-    }
+  onDeleteMessage(id: string) {
+    this.contactService.deleteContactMessage(id).subscribe({
+      next: (res) => {
+        alert('تم حذف الرسالة بنجاح');
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log('Error fetching Message data:', err);
+      },
+    });
   }
 
-  // get messages
-
-  Messages: MessageIF[] = [];
-
-  checkData() {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._AdminMessageService.get_Message(userToken).subscribe({
-        next: (res) => {
-          this.Messages = res.data;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+  getAllMessages() {
+    this.contactService.getContactMessages().subscribe({
+      next: (res) => {
+        this.messages = res.data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

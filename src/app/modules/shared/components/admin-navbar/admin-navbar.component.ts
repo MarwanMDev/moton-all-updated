@@ -7,11 +7,16 @@ import { StorageService } from 'src/app/core/services/storage/storage.service';
   styleUrls: ['./admin-navbar.component.css'],
 })
 export class AdminNavbarComponent implements OnInit {
-  isLogin: boolean = false;
+  isLoggedIn: boolean = false;
 
   constructor(private storageService: StorageService) {}
 
   ngOnInit(): void {
-    this.isLogin = this.storageService.isLoggedIn();
+    this.isLoggedIn = this.storageService.isLoggedIn();
+  }
+
+  logout(): void {
+    this.storageService.clean();
+    window.location.reload();
   }
 }

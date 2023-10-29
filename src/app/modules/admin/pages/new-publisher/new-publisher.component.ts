@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { PublisherIF } from '../../interface/publisher-if';
-import { AuthService } from '../../Service/auth.service';
-import { AddPublisherService } from '../../Service/add-publisher.service';
-import { UsersSerService } from '../../Service/users-ser.service';
+import { UserService } from 'src/app/core/services/user/user.service';
+import { User } from 'src/app/core/interfaces/user';
 
 @Component({
   selector: 'app-new-publisher',
@@ -11,11 +9,7 @@ import { UsersSerService } from '../../Service/users-ser.service';
   styleUrls: ['./new-publisher.component.css'],
 })
 export class NewPublisherComponent implements OnInit {
-  constructor(
-    private _AddPublisherService: AddPublisherService,
-    private _AuthService: AuthService,
-    private _UsersSerService: UsersSerService
-  ) {}
+  constructor(private userService: UserService) {}
 
   // get image added
   image: any;
@@ -32,25 +26,23 @@ export class NewPublisherComponent implements OnInit {
     formData.set('image', this.image);
 
     const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._AddPublisherService
-        .Upload_image(formData, userToken)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            this.saveImg = res.filename;
-            console.log(this.saveImg);
-            // this.AddBook.setValue( value:this.fileName)
+    // if (userToken) {
+    //   this.userService.Upload_image(formData, userToken).subscribe({
+    //     next: (res) => {
+    //       console.log(res);
+    //       this.saveImg = res.filename;
+    //       console.log(this.saveImg);
+    //       // this.AddBook.setValue( value:this.fileName)
 
-            this.AddPublisher.patchValue({
-              profileImage: this.saveImg,
-            });
-          },
-          error: (err) => {
-            console.log('Error fetching Book data:', err);
-          },
-        });
-    }
+    //       this.AddPublisher.patchValue({
+    //         profileImage: this.saveImg,
+    //       });
+    //     },
+    //     error: (err) => {
+    //       console.log('Error fetching Book data:', err);
+    //     },
+    //   });
+    // }
   }
 
   AddPublisher: FormGroup = new FormGroup({
@@ -76,28 +68,20 @@ export class NewPublisherComponent implements OnInit {
     profileImage: new FormControl(null, [Validators.required]),
   });
 
-  handelAddPublisher(AddPublisher: FormGroup) {
-    if (this.AddPublisher.valid) {
-      // const userToken = this._AuthService.userdata.getValue();
-      const userToken = localStorage.getItem('userToken');
-      if (userToken) {
-        const formData = this.AddPublisher.value;
-        // Add new category
-        this._AddPublisherService
-          .Add_Publisher(formData, userToken)
-          .subscribe({
-            next: () => {
-              alert('تم اضافة المستخدم');
-              this.AddPublisher.reset(); // Reset the form
-              this.image = null;
-              this.checkData(); // Refresh the list of categories
-            },
-            error: (err) => {
-              console.log('Error adding category:', err);
-              // Handle the error in a way that makes sense for your application
-            },
-          });
-      }
+  handelAddPublisher(addPublisherForm: FormGroup) {
+    if (addPublisherForm.valid) {
+      this.userService.addUser(addPublisherForm.value).subscribe({
+        next: () => {
+          alert('تم اضافة المستخدم');
+          addPublisherForm.reset(); // Reset the form
+          this.image = null;
+          this.checkData(); // Refresh the list of categories
+        },
+        error: (err) => {
+          console.log('Error adding category:', err);
+          // Handle the error in a way that makes sense for your application
+        },
+      });
     }
   }
 
@@ -108,29 +92,26 @@ export class NewPublisherComponent implements OnInit {
   }
 
   // delete one category
-  onDeletePubliser(id: string) {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._UsersSerService.delete_(id, userToken).subscribe({
-        next: (res) => {
-          alert('تم حذف الناشر');
-          this.ngOnInit();
-        },
-        error: (err) => {
-          console.log('Error fetching category data:', err);
-        },
-      });
-    }
+  onDeletePublisher(id: string) {
+    this.userService.deleteUser(id).subscribe({
+      next: (res) => {
+        alert('تم حذف الناشر');
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log('Error fetching category data:', err);
+      },
+    });
   }
 
   // get all Publisher after doing any change
 
-  Publisher: PublisherIF[] = [];
+  Publisher: User[] = [];
 
   checkData() {
     const userToken = localStorage.getItem('userToken');
     if (userToken) {
-      this._UsersSerService.get_(userToken).subscribe({
+      this.userService.getAllUsers().subscribe({
         next: (res) => {
           // this.Publisher=[]
           // let resOfUsers = res.data

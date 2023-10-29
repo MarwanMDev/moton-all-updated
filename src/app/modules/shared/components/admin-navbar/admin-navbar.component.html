@@ -1,143 +1,179 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary header">
+<nav class="navbar navbar-expand-lg bg-light shadow-lg">
   <div class="container-fluid home">
+    <a class="navbar-brand" [routerLink]="['/admin']">
+      <img
+        src="../../../../assets/image/logo.jpeg"
+        alt="logo"
+        style="width: 60px"
+      />
+      <!-- <i class="fab fa-facebook logo"></i> -->
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <i class="fab fa-facebook logo"></i>
-
-      <ul class="navbar-nav ms-auto= mb-2 mt-2 mb-0 move">
-        <li *ngIf="isLogin" class="nav-item me-1">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
           <a
             class="nav-link"
-            routerLinkActive="bg-dark text-white rounded "
-            routerLink="/admin"
-            >الرئيسية</a
+            aria-current="page"
+            [routerLink]="['/admin']"
+            routerLinkActive="active"
           >
+            {{ 'navigation.home' | transloco }}
+          </a>
         </li>
-
-        <li class="dropdown" *ngIf="isLogin">
-          <a href="javascript:void(0)" class="dropbtn me-1">الكتب</a>
-          <div class="dropdown-content">
-            <a
-              routerLink="/Electronic_Books"
-              routerLinkActive="bg-dark text-white rounded "
-              >الكتب الالكترونية</a
-            >
-            <a
-              routerLink="/Paper_Books"
-              routerLinkActive="bg-dark text-white rounded "
-              >الكتب الورقية</a
-            >
-          </div>
+        <li class="dropdown nav-item" *ngIf="isLoggedIn">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ 'navigation.books' | transloco }}
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/admin/paper-books']"
+                >{{ 'home.paper_books' | transloco }}</a
+              >
+            </li>
+            <li>
+              <a
+                [routerLink]="['/admin/electronic-books']"
+                class="dropdown-item"
+                >{{ 'home.electronic_books' | transloco }}</a
+              >
+            </li>
+          </ul>
         </li>
-
-        <li *ngIf="isLogin" class="nav-item me-1">
+        <li class="nav-item">
           <a
             class="nav-link"
-            routerLink="ebook"
-            routerLinkActive="bg-dark text-white rounded "
-            >اضافة كتاب</a
+            routerLink="add-book"
+            routerLinkActive="active"
+            >{{ 'navigation.add_book' | transloco }}</a
           >
         </li>
-
-        <li *ngIf="isLogin" class="nav-item me-1">
+        <li class="nav-item">
           <a
             class="nav-link"
-            routerLink="massage"
-            routerLinkActive="bg-dark text-white rounded "
-            >الرسائل</a
+            routerLink="messages"
+            routerLinkActive="active"
+            >{{ 'navigation.messages' | transloco }}</a
           >
         </li>
-
-        <li *ngIf="isLogin" class="nav-item me-1">
+        <li class="nav-item">
           <a
             class="nav-link"
-            routerLink="add-event"
-            routerLinkActive="bg-dark text-white rounded "
-            >الفعاليات</a
+            routerLink="events"
+            routerLinkActive="active"
+            >{{ 'navigation.events' | transloco }}</a
           >
         </li>
-
-        <li class="dropdown" *ngIf="isLogin">
-          <a href="javascript:void(0)" class="dropbtn me-1"
-            >المستخدمين</a
+        <li class="dropdown nav-item" *ngIf="isLoggedIn">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
           >
-          <div class="dropdown-content">
-            <a
-              routerLink="/Admins"
-              routerLinkActive="bg-dark text-white rounded "
-              >Owners</a
-            >
-            <a
-              routerLink="/Users"
-              routerLinkActive="bg-dark text-white rounded "
-              >Users</a
-            >
-            <a
-              routerLink="/Publishers"
-              routerLinkActive="bg-dark text-white rounded "
-              >Publisher</a
-            >
-          </div>
+            {{ 'navigation.users' | transloco }}
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/admin/admins']"
+                >{{ 'navigation.admins' | transloco }}</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/admin/users']"
+                >{{ 'navigation.users' | transloco }}</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/admin/publishers']"
+                >{{ 'navigation.publishers' | transloco }}</a
+              >
+            </li>
+          </ul>
         </li>
-
-        <li *ngIf="isLogin" class="nav-item me-1">
+        <li class="nav-item">
           <a
             class="nav-link"
             routerLink="add-publisher"
-            routerLinkActive="bg-dark text-white rounded "
-            >اضافة مستخدم</a
+            routerLinkActive="active"
+            >{{ 'navigation.add_publisher' | transloco }}</a
           >
         </li>
-
-        <li *ngIf="isLogin" class="nav-item me-1">
+        <li class="nav-item">
           <a
             class="nav-link"
-            routerLink="order"
-            routerLinkActive="bg-dark text-white rounded "
-            >الطلبات</a
+            routerLink="orders"
+            routerLinkActive="active"
+            >{{ 'navigation.orders' | transloco }}</a
           >
         </li>
-
-        <li *ngIf="isLogin" class="nav-item me-1">
+        <li class="nav-item">
           <a
-            class="nav-link active"
-            aria-current="page"
-            routerLink="AddCategory"
-            routerLinkActive="bg-dark text-white rounded "
-            >اضافة فئة</a
+            class="nav-link"
+            routerLink="add-category"
+            routerLinkActive="active"
+            >{{ 'home.add_category' | transloco }}</a
           >
         </li>
-
-        <div class="login">
-          <button
-            type="button"
-            class="btn btn-outline-secondary mb-2 mt-2"
-            *ngIf="!isLogin"
-            routerLink="/login"
-          >
-            تسجيل الدخول
-          </button>
-          <!-- <button
-            type="button"
-            class="btn btn-outline-danger mb-2 mt-2"
-            *ngIf="isLogin"
-            (click)="logOut()"
-          >
-            تسجيل الخروج
-          </button> -->
-        </div>
       </ul>
+      <div class="d-flex flex-grow-1 justify-content-end gap-2">
+        <div class="dropdown" *ngIf="isLoggedIn">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            style="background-color: #ed553b; color: #ffffff"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span
+              ><i class="fa-solid fa-user" style="color: #ffffff"></i
+            ></span>
+            {{ 'navigation.profile' | transloco }}
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                href="#"
+                [routerLink]="'/user/profile'"
+              >
+                {{ 'navigation.profile' | transloco }}
+              </a>
+            </li>
+            <hr />
+            <li>
+              <a class="dropdown-item" href="#" (click)="logout()">
+                {{ 'navigation.logout' | transloco }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
-
-<!-- <div class="dropdown show">
-    <a class="btn btn-secondary dropdown-toggle"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Dropdown link
-    </a>
-
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-      <a class="dropdown-item" >Action</a>
-      <a class="dropdown-item" >Another action</a>
-      <a class="dropdown-item" >Something else here</a>
-    </div>
-  </div> -->

@@ -1,6 +1,6 @@
-import { BookIF } from '../../interface/book-if';
 import { Component, OnInit } from '@angular/core';
-import { AddNewBookService } from '../../Service/add-new-book.service';
+import { Book } from 'src/app/core/interfaces/book';
+import { BooksService } from 'src/app/core/services/books/books.service';
 
 @Component({
   selector: 'app-all-paper-books',
@@ -8,18 +8,18 @@ import { AddNewBookService } from '../../Service/add-new-book.service';
   styleUrls: ['./all-paper-books.component.css'],
 })
 export class AllPaperBooksComponent implements OnInit {
-  constructor(private _AddNewBookService: AddNewBookService) {}
+  constructor(private booksService: BooksService) {}
 
   ngOnInit(): void {
     this.checkData();
   }
 
-  Book: BookIF[] = [];
+  books: Book[] = [];
 
   checkData() {
-    this._AddNewBookService.get_book().subscribe({
+    this.booksService.getAllBooks().subscribe({
       next: (res) => {
-        this.Book = [];
+        this.books = [];
         let book_info = res.data;
         // this.Book = res.data;
         console.log(res.data[5]);
@@ -27,7 +27,7 @@ export class AllPaperBooksComponent implements OnInit {
 
         for (let i = 0; i < book_info.length; i++) {
           if (book_info[i].type === 'paper') {
-            this.Book.push(book_info[i]);
+            this.books.push(book_info[i]);
           }
         }
       },
@@ -37,18 +37,15 @@ export class AllPaperBooksComponent implements OnInit {
     });
   }
 
-  onDeleteProdect(id: string) {
-    const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      this._AddNewBookService.delete_book(id, userToken).subscribe({
-        next: (res) => {
-          alert('تم حذف الكتاب بنجاح');
-          this.checkData();
-        },
-        error: (err) => {
-          console.log('Error fetching Book data:', err);
-        },
-      });
-    }
+  onDeleteBook(id: string) {
+    this.booksService.deleteBook(id).subscribe({
+      next: (res) => {
+        alert('تم حذف الكتاب بنجاح');
+        this.checkData();
+      },
+      error: (err) => {
+        console.log('Error fetching Book data:', err);
+      },
+    });
   }
 }

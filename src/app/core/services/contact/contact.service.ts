@@ -14,4 +14,12 @@ export class ContactService {
   createNewContact(contactData: object): Observable<any> {
     return this.client.post(BASE_URL + 'contact', contactData);
   }
+
+  getContactMessages(): Observable<any> {
+    return this.client.get(BASE_URL + 'contact');
+  }
+
+  deleteContactMessage(iid: string): Observable<any> {
+    return this.client.delete(BASE_URL + 'contact/' + iid);
+  }
 }
